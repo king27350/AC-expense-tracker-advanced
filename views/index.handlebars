@@ -1,0 +1,44 @@
+<div class="dropdown col-10  mx-auto">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">1</a>
+    <a class="dropdown-item" href="#">2</a>
+    <a class="dropdown-item" href="#">3</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-10  mx-auto text-center bg-white">
+      {{!-- total amount --}}
+      <div class="col-10 mx-auto d-block mb-3">
+        <h4 class="text-left">總金額：</h4>
+        <h1 class="text-right text-primary">$ 123456</h1>
+      </div>
+      {{!-- /total amount --}}
+
+      {{#each records}}
+      <div class="d-inline-block col-5">
+        <h4>{{this.name}}</h4>
+        <span>{{this.date}}</span>
+      </div>
+      <div class=" d-inline-block col-1 my-auto mr-5">
+        <span style="font-size: 20px; line-height:60px;">{{this.amount}}</span>
+      </div>
+
+      <div class="mt-2">
+        <a class="btn btn-outline-primary" href="/records/{{this._id}}/edit">編輯</a>
+        <a class="btn btn-outline-danger ml-3" data-toggle="modal" data-target="#trigger-deleteItem-{{this._id}}"
+          href="#">刪除</a>
+      </div>
+
+      {{/each}}
+      <div class="col-10 mx-auto d-block mb-3">
+        <a class="btn btn-primary mt-5" href="/records/new">新增支出</a>
+      </div>
+    </div>
+  </div>
+</div>
