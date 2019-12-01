@@ -53,11 +53,25 @@ app.post('/records', (req, res) => {
 })
 // 修改 Record 頁面
 app.get('/records/:id/edit', (req, res) => {
-  res.send('修改 Record 頁面')
+  Record.findById(req.params.id, (err, record) => {
+    console.log(record)
+    if (err) return console.log(err)
+    return res.render('edit', { record: record })
+  })
 })
 // 修改 Record 動作
 app.post('/records/:id/edit', (req, res) => {
-  res.send('修改 Record')
+  Record.findById(req.params.id, (err, record) => {
+    if (err) return console.error(err)
+    record.name = req.body.name
+    record.amount = req.body.amount
+    record.category = req.body.category
+    record.date = req.body.date
+    record.save(err => {
+      if (err) return console.error(err)
+      return res.redirect('/')
+    })
+  })
 })
 // 刪除 Record
 app.post('/records/:id/delete', (req, res) => {
