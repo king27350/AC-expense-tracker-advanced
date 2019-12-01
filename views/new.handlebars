@@ -1,0 +1,36 @@
+<form action="/records" method="POST">
+  <div class="container">
+    <div class="row">
+      <div>
+        <h3>*必填欄位</h3>
+        <h2>請輸入你的支出</h2>
+      </div>
+      <div>
+        <h2>名稱*</h2>
+        <input type="text" placeholder="name" name="name">
+      </div>
+    </div>
+
+    <div>
+      <h2>日期*</h2>
+      <input type="date" name="date">
+    </div>
+
+    <div>
+      <h2>類別*</h2>
+      <select name="category">
+        　<option value="food">Food</option>
+        　<option value="transportation">Transportation</option>
+        　<option value="other">Other</option>
+        　<option value="entertainment">Entertainment</option>
+      </select>
+    </div>
+
+    <div>
+      <h2>金額*</h2>
+      <input type="text" name="amount">
+    </div>
+
+    <button type="submit">新增支出</button>
+  </div>
+</form>
