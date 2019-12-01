@@ -1,14 +1,22 @@
-<div class="dropdown col-10  mx-auto">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-    aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">1</a>
-    <a class="dropdown-item" href="#">2</a>
-    <a class="dropdown-item" href="#">3</a>
+<form action="/records">
+  <div class="input-group-append">
+    <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+    <div class="dropdown btn-sort">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Sort
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <button class="dropdown-item" name="sort" value="asc">A-Z</button>
+        <button class="dropdown-item" name="sort" value="desc">Z-A</button>
+        <button class="dropdown-item" name="sort" value="-1">金額大-小</button>
+        <button class="dropdown-item" name="sort" value="1">金額小-大</button>
+      </div>
+    </div>
+
   </div>
-</div>
+  </div>
+</form>
 
 <div class="container">
   <div class="row">
@@ -16,7 +24,7 @@
       {{!-- total amount --}}
       <div class="col-10 mx-auto d-block mb-3">
         <h4 class="text-left">總金額：</h4>
-        <h1 class="text-right text-primary">$ 123456</h1>
+        <h1 class="text-right text-primary">$ {{totalAmount}}</h1>
       </div>
       {{!-- /total amount --}}
 

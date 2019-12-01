@@ -28,13 +28,28 @@ db.once('open', () => {
 
 app.get('/', (req, res) => {
   Record.find((err, records) => {
+    let totalAmount = 0
+    for (let i = 0; i < records.length; i++) {
+      totalAmount += Number(records[i].amount)
+    }
     if (err) return console.error(err)
-    return res.render('index', { records: records })
+    return res.render('index', { records: records, totalAmount })
   })
 })
-// 列出全部 Record
+//分類
 app.get('/records', (req, res) => {
-  res.send('列出所有 Record')
+  const sort = req.query.sort
+
+  if (sort === 'asc' || sort === 'desc') {
+    Record.find().sort({ name: sort }).exec((err, records) => {
+      res.render('index', { records })
+    })
+  } else if (sort === '1' || sort === '-1') {
+    Record.find().sort({ amount: sort }).exec((err, records) => {
+      res.render('index', { records })
+    })
+  }
+
 })
 // 新增一筆 Record 頁面
 app.get('/records/new', (req, res) => {
