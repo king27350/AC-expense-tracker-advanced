@@ -31,8 +31,10 @@
 
       <div class="mt-2">
         <a class="btn btn-outline-primary" href="/records/{{this._id}}/edit">編輯</a>
-        <a class="btn btn-outline-danger ml-3" data-toggle="modal" data-target="#trigger-deleteItem-{{this._id}}"
-          href="#">刪除</a>
+
+        <form action="/records/{{{this.id}}}/delete?_method=DELETE" method="POST" style="display: inline;">
+          <button class="btn btn-outline-danger" type="submit">delete</button>
+        </form>
       </div>
 
       {{/each}}

@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const Record = require('./models/record')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
@@ -13,6 +14,7 @@ mongoose.connect('mongodb://localhost/record', { useNewUrlParser: true, useUnifi
 
 
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 const db = mongoose.connection
 
@@ -60,7 +62,7 @@ app.get('/records/:id/edit', (req, res) => {
   })
 })
 // 修改 Record 動作
-app.post('/records/:id/edit', (req, res) => {
+app.put('/records/:id', (req, res) => {
   Record.findById(req.params.id, (err, record) => {
     if (err) return console.error(err)
     record.name = req.body.name
@@ -74,8 +76,14 @@ app.post('/records/:id/edit', (req, res) => {
   })
 })
 // 刪除 Record
-app.post('/records/:id/delete', (req, res) => {
-  res.send('刪除 Record')
+app.delete('/records/:id/delete', (req, res) => {
+  Record.findById(req.params.id, (err, record) => {
+    if (err) return console.error(err)
+    record.remove(err => {
+      if (err) return console.error(err)
+      return res.redirect('/')
+    })
+  })
 })
 
 app.listen(3000, () => {
