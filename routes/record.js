@@ -6,6 +6,7 @@ const Record = require('../models/record')
 
 //分類
 router.get('/', (req, res) => {
+  const month = req.query.month
   const sort = req.query.sort
   let totalAmount = 0
   if (sort === 'asc' || sort === 'desc') {
@@ -19,6 +20,38 @@ router.get('/', (req, res) => {
   } else if (sort === '1' || sort === '-1') {
     Record.find().sort({ amount: sort }).exec((err, records) => {
 
+      for (let i = 0; i < records.length; i++) {
+        totalAmount += Number(records[i].amount)
+      }
+      res.render('index', { records, totalAmount })
+    })
+  } else if (Number(month) === 1) {
+    Record.find({}).exec((err, record) => {
+      let records = record.filter(item => item.date.getMonth() <= 2)
+      for (let i = 0; i < records.length; i++) {
+        totalAmount += Number(records[i].amount)
+      }
+      res.render('index', { records, totalAmount })
+    })
+  } else if (Number(month) === 2) {
+    Record.find({}).exec((err, record) => {
+      let records = record.filter(item => item.date.getMonth() <= 5 && item.date.getMonth() > 2)
+      for (let i = 0; i < records.length; i++) {
+        totalAmount += Number(records[i].amount)
+      }
+      res.render('index', { records, totalAmount })
+    })
+  } else if (Number(month) === 3) {
+    Record.find({}).exec((err, record) => {
+      let records = record.filter(item => item.date.getMonth() <= 8 && item.date.getMonth() > 5)
+      for (let i = 0; i < records.length; i++) {
+        totalAmount += Number(records[i].amount)
+      }
+      res.render('index', { records, totalAmount })
+    })
+  } else if (Number(month) === 4) {
+    Record.find({}).exec((err, record) => {
+      let records = record.filter(item => item.date.getMonth() <= 11 && item.date.getMonth() > 8)
       for (let i = 0; i < records.length; i++) {
         totalAmount += Number(records[i].amount)
       }

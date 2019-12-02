@@ -1,10 +1,25 @@
 <form action="/records">
-  <div class="input-group-append">
+  <div class="input-group-append mx-auto " style="width: 200px;">
+
     <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
     <div class="dropdown btn-sort">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
-        Sort
+        月份
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <button class="dropdown-item" name="month" value="1">1-3月</button>
+        <button class="dropdown-item" name="month" value="2">4-6月</button>
+        <button class="dropdown-item" name="month" value="3">7-9月</button>
+        <button class="dropdown-item" name="month" value="4">10-12月</button>
+      </div>
+    </div>
+
+    <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+    <div class="dropdown btn-sort">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        分類
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         <button class="dropdown-item" name="sort" value="asc">A-Z</button>
@@ -19,35 +34,39 @@
 </form>
 
 <div class="container">
-  <div class="row">
-    <div class="col-10  mx-auto text-center bg-white">
-      {{!-- total amount --}}
-      <div class="col-10 mx-auto d-block mb-3">
-        <h4 class="text-left">總金額：</h4>
-        <h1 class="text-right text-primary">$ {{totalAmount}}</h1>
-      </div>
-      {{!-- /total amount --}}
+  <div class="list-group">
+    <div class="row">
+      <div class="col-10  mx-auto text-center bg-white">
+        {{!-- total amount --}}
+        <div class="col-10 mx-auto d-block mb-3">
+          <h4 class="text-left">總金額：</h4>
+          <h1 class="text-right text-primary">$ {{totalAmount}}</h1>
+        </div>
+        {{!-- /total amount --}}
 
-      {{#each records}}
-      <div class="d-inline-block col-5">
-        <h4>{{this.name}}</h4>
-        <span>{{this.date}}</span>
-      </div>
-      <div class=" d-inline-block col-1 my-auto mr-5">
-        <span style="font-size: 20px; line-height:60px;">{{this.amount}}</span>
-      </div>
+        {{#each records}}
+        <div class="list-group-item">
+          <div class="d-inline-block col-5 ">
+            <h4 class="text-left">{{this.name}}</h4>
+            <h6 class="text-left">{{this.date}}</h6>
+          </div>
+          <div class=" d-inline-block col-1 my-auto mr-5">
+            <span style="font-size: 20px; line-height:60px;">{{this.amount}}</span>
+          </div>
+          <div class="d-inline-block">
+            <div class="mt-2">
+              <a class="btn btn-outline-primary" href="/records/{{this._id}}/edit">編輯</a>
 
-      <div class="mt-2">
-        <a class="btn btn-outline-primary" href="/records/{{this._id}}/edit">編輯</a>
-
-        <form action="/records/{{{this.id}}}/delete?_method=DELETE" method="POST" style="display: inline;">
-          <button class="btn btn-outline-danger" type="submit">delete</button>
-        </form>
-      </div>
-
-      {{/each}}
-      <div class="col-10 mx-auto d-block mb-3">
-        <a class="btn btn-primary mt-5" href="/records/new">新增支出</a>
+              <form action="/records/{{{this.id}}}/delete?_method=DELETE" method="POST" style="display: inline;">
+                <button class="btn btn-outline-danger" type="submit">delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+        <div class="col-10 mx-auto d-block mb-3">
+          <a class="btn btn-primary mt-5" href="/records/new">新增支出</a>
+        </div>
       </div>
     </div>
   </div>
