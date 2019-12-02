@@ -10,6 +10,9 @@ const moment = require('moment')
 
 // handlebars-helper 
 const handlebars = require("handlebars")
+handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
+  return (arg1 == arg2) ? options.fn(this) : options.inverse(this)
+})
 
 handlebars.registerHelper('formatDate', function (date) {
   const formatDate = moment(date).format("YYYY-MM-DD")

@@ -15,18 +15,21 @@
 
       <div class="d-flex justify-content-between m-3">
         <h4>日期* :</h4>
-        {{!-- 尚未想到時間默認值處理 --}}
-        <input id="date" type="date" name="date" value="{{record.date}}" style="width: 300px;" required>
+        <input id="date" type="date" name="date" value="{{formatDate record.date}}" style="width: 300px;" required>
       </div>
 
       <div class="d-flex justify-content-between m-3">
         <h4>類別* :</h4>
         {{!-- 尚未搞定分類默認值 --}}
+        {{!-- 如果得到的 record.category 等於 該值 就給selected --}}
         <select name="category" style="width: 300px;" required>
-          　<option value="food">food</option>
-          　<option value="transportation">transportation</option>
-          　<option value="other">other</option>
-          　<option value="entertainment">entertainment</option>
+          　<option value="food" {{#ifEquals record.category "food"}} selected {{/ifEquals}}>food</option>
+          　<option value="transportation" {{#ifEquals record.category "transportation"}} selected {{/ifEquals}}>
+            transportation</option>
+          　<option value="other" {{#ifEquals record.category "other"}}selected {{/ifEquals}}>other</option>
+          　<option value="entertainment" {{#ifEquals record.category "entertainment"}}selected {{/ifEquals}}>
+            entertainment
+          </option>
         </select>
       </div>
 
