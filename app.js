@@ -5,6 +5,16 @@ const Record = require('./models/record')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+const moment = require('moment')
+
+
+// handlebars-helper 
+const handlebars = require("handlebars")
+
+handlebars.registerHelper('formatDate', function (date) {
+  const formatDate = moment(date).format("YYYY-MM-DD")
+  return formatDate
+})
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')

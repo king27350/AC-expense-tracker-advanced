@@ -87,6 +87,7 @@ router.get('/:id/edit', (req, res) => {
 // 修改 Record 動作
 router.put('/:id', (req, res) => {
   Record.findById(req.params.id, (err, record) => {
+    console.log(req.body.date)
     if (err) return console.error(err)
     record.name = req.body.name
     record.amount = req.body.amount

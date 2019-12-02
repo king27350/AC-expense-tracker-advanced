@@ -4,31 +4,31 @@
       "name": "午餐",
       "category": "food",
       "amount": "120",
-      "date": "2019-06-01"
+      "date": "2019-02-01"
     },
     {
       "name": "修車",
       "category": "other",
       "amount": "1200",
-      "date": "2019-06-02"
+      "date": "2019-05-02"
     },
     {
       "name": "捷運",
       "category": "traffic",
       "amount": "50",
-      "date": "2019-06-03"
+      "date": "2019-08-03"
     },
     {
       "name": "撞球",
       "category": "entertainment",
       "amount": "300",
-      "date": "2019-06-06"
+      "date": "2019-010-06"
     },
     {
       "name": "清潔用品",
       "category": "home",
       "amount": "200",
-      "date": "2019-06-07"
+      "date": "2019-12-07"
     }
   ]
 }
