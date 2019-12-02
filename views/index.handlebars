@@ -1,8 +1,7 @@
 <form action="/records">
   <div class="input-group-append mx-auto " style="width: 200px;">
 
-    <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
-    <div class="dropdown btn-sort">
+    <div class="dropdown btn-sort m-3">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         月份
@@ -15,8 +14,7 @@
       </div>
     </div>
 
-    <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
-    <div class="dropdown btn-sort">
+    <div class="dropdown btn-sort m-3">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         分類
@@ -46,6 +44,28 @@
 
         {{#each records}}
         <div class="list-group-item">
+          <div class="d-inline-block">
+            {{#ifEquals this.category "home"}}
+            <i class="fas fa-home"></i>
+            {{/ifEquals}}
+
+            {{#ifEquals this.category "transportation"}}
+            <i class="fas fa-shuttle-van"></i>
+            {{/ifEquals}}
+
+            {{#ifEquals this.category "entertainment"}}
+            <i class="fas fa-grin-beam"></i>
+            {{/ifEquals}}
+
+            {{#ifEquals this.category "food"}}
+            <i class="fas fa-utensils"></i>
+            {{/ifEquals}}
+
+            {{#ifEquals this.category "other"}}
+            <i class="fas fa-pen"></i>
+            {{/ifEquals}}
+
+          </div>
           <div class="d-inline-block col-5 ">
             <h4 class="text-left">{{this.name}}</h4>
             <h6 class="text-left">{{formatDate this.date}}</h6>

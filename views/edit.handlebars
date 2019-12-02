@@ -20,8 +20,6 @@
 
       <div class="d-flex justify-content-between m-3">
         <h4>類別* :</h4>
-        {{!-- 尚未搞定分類默認值 --}}
-        {{!-- 如果得到的 record.category 等於 該值 就給selected --}}
         <select name="category" style="width: 300px;" required>
           　<option value="food" {{#ifEquals record.category "food"}} selected {{/ifEquals}}>food</option>
           　<option value="transportation" {{#ifEquals record.category "transportation"}} selected {{/ifEquals}}>
