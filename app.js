@@ -43,7 +43,7 @@ db.once('open', () => {
 //載入 routes
 app.use('/', require('./routes/home'))
 app.use('/records', require('./routes/record'))
-
+app.use('/users', require('./routes/user'))
 
 app.listen(3000, () => {
   console.log('app is listening')
