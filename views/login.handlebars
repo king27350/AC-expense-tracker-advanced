@@ -2,6 +2,7 @@
   <div class="col-md-6 m-auto">
     <div class="card card-body">
       <h1 class="text-center mb-3">Login</h1>
+      {{> messages}}
       <form action="/users/login" method="POST">
         <div class="form-group">
           <label for="email">Email</label>
@@ -15,6 +16,7 @@
           <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
         </label>
         <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <a href="/auth/facebook" class="btn btn-info btn-block">Facebook Login</a>
       </form>
       <p class="lead mt-4">
         No Account? <a href="/users/register">Register</a>

@@ -8,6 +8,7 @@ const methodOverride = require('method-override')
 const moment = require('moment')
 const session = require('express-session')
 const passport = require('passport')
+const flash = require('connect-flash')
 
 // 判別開發環境
 if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模式
@@ -35,12 +36,14 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
-
+app.use(flash())
 // 載入 Passport config
 require('./config/passport')(passport)
 app.use((req, res, next) => {
   res.locals.user = req.user
   res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 
