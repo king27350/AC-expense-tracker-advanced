@@ -5,12 +5,12 @@ const { authenticated } = require('../config/auth')
 
 
 //分類
-router.get('/', (req, res) => {
+router.get('/', authenticated, (req, res) => {
   const month = req.query.month
   const sort = req.query.sort
   let totalAmount = 0
   if (sort === 'asc' || sort === 'desc') {
-    Record.find().sort({ name: sort }).exec((err, records) => {
+    Record.find({ userId: req.user._id }).sort({ name: sort }).exec((err, records) => {
 
       for (let i = 0; i < records.length; i++) {
         totalAmount += Number(records[i].amount)
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
       res.render('index', { records, totalAmount })
     })
   } else if (sort === '1' || sort === '-1') {
-    Record.find().sort({ amount: sort }).exec((err, records) => {
+    Record.find({ userId: req.user._id }).sort({ amount: sort }).exec((err, records) => {
 
       for (let i = 0; i < records.length; i++) {
         totalAmount += Number(records[i].amount)
@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
       res.render('index', { records, totalAmount })
     })
   } else if (Number(month) === 1) {
-    Record.find({}).exec((err, record) => {
+    Record.find({ userId: req.user._id }).exec((err, record) => {
       let records = record.filter(item => item.date.getMonth() <= 2)
       for (let i = 0; i < records.length; i++) {
         totalAmount += Number(records[i].amount)
@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
       res.render('index', { records, totalAmount })
     })
   } else if (Number(month) === 2) {
-    Record.find({}).exec((err, record) => {
+    Record.find({ userId: req.user._id }).exec((err, record) => {
       let records = record.filter(item => item.date.getMonth() <= 5 && item.date.getMonth() > 2)
       for (let i = 0; i < records.length; i++) {
         totalAmount += Number(records[i].amount)
@@ -42,7 +42,7 @@ router.get('/', (req, res) => {
       res.render('index', { records, totalAmount })
     })
   } else if (Number(month) === 3) {
-    Record.find({}).exec((err, record) => {
+    Record.find({ userId: req.user._id }).exec((err, record) => {
       let records = record.filter(item => item.date.getMonth() <= 8 && item.date.getMonth() > 5)
       for (let i = 0; i < records.length; i++) {
         totalAmount += Number(records[i].amount)
@@ -50,7 +50,7 @@ router.get('/', (req, res) => {
       res.render('index', { records, totalAmount })
     })
   } else if (Number(month) === 4) {
-    Record.find({}).exec((err, record) => {
+    Record.find({ userId: req.user._id }).exec((err, record) => {
       let records = record.filter(item => item.date.getMonth() <= 11 && item.date.getMonth() > 8)
       for (let i = 0; i < records.length; i++) {
         totalAmount += Number(records[i].amount)
@@ -70,7 +70,8 @@ router.post('/', authenticated, (req, res) => {
     name: req.body.name,
     date: req.body.date,
     category: req.body.category,
-    amount: req.body.amount
+    amount: req.body.amount,
+    userId: req.user._id
   })
   record.save(err => {
     if (err) return console.error(err)
@@ -79,14 +80,13 @@ router.post('/', authenticated, (req, res) => {
 })
 // 修改 Record 頁面
 router.get('/:id/edit', authenticated, (req, res) => {
-  Record.findById(req.params.id, (err, record) => {
-    if (err) return console.log(err)
+  Record.findOne({ _id: req.params.id, userId: req.user._id }, (err, record) => {
     return res.render('edit', { record: record })
   })
 })
 // 修改 Record 動作
 router.put('/:id', authenticated, (req, res) => {
-  Record.findById(req.params.id, (err, record) => {
+  Record.findOne({ _id: req.params.id, userId: req.user._id }, (err, record) => {
     if (err) return console.error(err)
     record.name = req.body.name
     record.amount = req.body.amount
@@ -100,7 +100,7 @@ router.put('/:id', authenticated, (req, res) => {
 })
 // 刪除 Record
 router.delete('/:id/delete', authenticated, (req, res) => {
-  Record.findById(req.params.id, (err, record) => {
+  Record.findOne({ _id: req.params.id, userId: req.user._id }, (err, record) => {
     if (err) return console.error(err)
     record.remove(err => {
       if (err) return console.error(err)

@@ -21,7 +21,8 @@ const recordSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    index: true
+    index: true,
+    required: true
   }
 })
 
