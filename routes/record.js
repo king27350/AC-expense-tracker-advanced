@@ -5,13 +5,12 @@ const { authenticated } = require('../config/auth')
 
 
 //分類
-router.get('/sort', authenticated, (req, res) => {
+router.get('/filter', authenticated, (req, res) => {
   const month = req.query.month
   const category = req.query.category
   let totalAmount = 0
 
   Record.find({ userId: req.user._id }).exec((err, record) => {
-    console.log(category)
     let records = ''
     if (!category) {
       records = record.filter(item => item.date.getMonth() === Number(month))
