@@ -5,59 +5,25 @@ const { authenticated } = require('../config/auth')
 
 
 //分類
-router.get('/', authenticated, (req, res) => {
+router.get('/sort', authenticated, (req, res) => {
   const month = req.query.month
-  const sort = req.query.sort
+  const category = req.query.category
   let totalAmount = 0
-  if (sort === 'asc' || sort === 'desc') {
-    Record.find({ userId: req.user._id }).sort({ name: sort }).exec((err, records) => {
 
-      for (let i = 0; i < records.length; i++) {
-        totalAmount += Number(records[i].amount)
-      }
-      res.render('index', { records, totalAmount })
-    })
-  } else if (sort === '1' || sort === '-1') {
-    Record.find({ userId: req.user._id }).sort({ amount: sort }).exec((err, records) => {
+  Record.find({ userId: req.user._id }).exec((err, record) => {
+    console.log(category)
+    let records = ''
+    if (!category) {
+      records = record.filter(item => item.date.getMonth() === Number(month))
+    } else {
+      records = record.filter(item => item.date.getMonth() === Number(month)).filter(item2 => item2.category === category)
+    }
 
-      for (let i = 0; i < records.length; i++) {
-        totalAmount += Number(records[i].amount)
-      }
-      res.render('index', { records, totalAmount })
-    })
-  } else if (Number(month) === 1) {
-    Record.find({ userId: req.user._id }).exec((err, record) => {
-      let records = record.filter(item => item.date.getMonth() <= 2)
-      for (let i = 0; i < records.length; i++) {
-        totalAmount += Number(records[i].amount)
-      }
-      res.render('index', { records, totalAmount })
-    })
-  } else if (Number(month) === 2) {
-    Record.find({ userId: req.user._id }).exec((err, record) => {
-      let records = record.filter(item => item.date.getMonth() <= 5 && item.date.getMonth() > 2)
-      for (let i = 0; i < records.length; i++) {
-        totalAmount += Number(records[i].amount)
-      }
-      res.render('index', { records, totalAmount })
-    })
-  } else if (Number(month) === 3) {
-    Record.find({ userId: req.user._id }).exec((err, record) => {
-      let records = record.filter(item => item.date.getMonth() <= 8 && item.date.getMonth() > 5)
-      for (let i = 0; i < records.length; i++) {
-        totalAmount += Number(records[i].amount)
-      }
-      res.render('index', { records, totalAmount })
-    })
-  } else if (Number(month) === 4) {
-    Record.find({ userId: req.user._id }).exec((err, record) => {
-      let records = record.filter(item => item.date.getMonth() <= 11 && item.date.getMonth() > 8)
-      for (let i = 0; i < records.length; i++) {
-        totalAmount += Number(records[i].amount)
-      }
-      res.render('index', { records, totalAmount })
-    })
-  }
+    for (let i = 0; i < records.length; i++) {
+      totalAmount += Number(records[i].amount)
+    }
+    res.render('index', { records, totalAmount, month })
+  })
 
 })
 // 新增一筆 Record 頁面
