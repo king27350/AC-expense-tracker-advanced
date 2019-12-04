@@ -14,6 +14,8 @@ router.get('/filter', authenticated, (req, res) => {
     let records = ''
     if (!category) {
       records = record.filter(item => item.date.getMonth() === Number(month))
+    } else if (!month) {
+      records = record.filter(item => item.category === category)
     } else {
       records = record.filter(item => item.date.getMonth() === Number(month)).filter(item2 => item2.category === category)
     }
@@ -21,6 +23,7 @@ router.get('/filter', authenticated, (req, res) => {
     for (let i = 0; i < records.length; i++) {
       totalAmount += Number(records[i].amount)
     }
+    req.flash('success_msg', '發大財，沒有支出')
     res.render('index', { records, totalAmount, month })
   })
 

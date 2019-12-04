@@ -12,6 +12,7 @@ router.get('/', authenticated, (req, res) => {
       totalAmount += Number(records[i].amount)
     }
     if (err) return console.error(err)
+    req.flash('success_msg', '發大財，沒有支出')
     return res.render('index', { records, totalAmount, userName })
   })
 })

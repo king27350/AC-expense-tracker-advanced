@@ -51,6 +51,9 @@
           <h1 class="text-right text-primary">$ {{totalAmount}}</h1>
         </div>
         {{!-- /total amount --}}
+        {{#ifEquals totalAmount "0"}}
+        {{> messages}}
+        {{/ifEquals}}
 
         {{#each records}}
         <div class="list-group-item">
