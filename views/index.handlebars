@@ -4,27 +4,33 @@
     <div class="dropdown btn-sort m-3">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
-        月份
+        {{month}}月份
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <button class="dropdown-item" name="month" value="0">1月</button>
-        <button class="dropdown-item" name="month" value="1">2月</button>
-        <button class="dropdown-item" name="month" value="2">3月</button>
-        <button class="dropdown-item" name="month" value="3">4月</button>
-        <button class="dropdown-item" name="month" value="4">5月</button>
-        <button class="dropdown-item" name="month" value="5">6月</button>
-        <button class="dropdown-item" name="month" value="6">7月</button>
-        <button class="dropdown-item" name="month" value="7">8月</button>
-        <button class="dropdown-item" name="month" value="8">9月</button>
-        <button class="dropdown-item" name="month" value="9">10月</button>
-        <button class="dropdown-item" name="month" value="10">11月</button>
-        <button class="dropdown-item" name="month" value="11">12月</button>
+        <button class="dropdown-item" name="month" value="1">1月</button>
+        <button class="dropdown-item" name="month" value="2">2月</button>
+        <button class="dropdown-item" name="month" value="3">3月</button>
+        <button class="dropdown-item" name="month" value="4">4月</button>
+        <button class="dropdown-item" name="month" value="5">5月</button>
+        <button class="dropdown-item" name="month" value="6">6月</button>
+        <button class="dropdown-item" name="month" value="7">7月</button>
+        <button class="dropdown-item" name="month" value="8">8月</button>
+        <button class="dropdown-item" name="month" value="9">9月</button>
+        <button class="dropdown-item" name="month" value="10">10月</button>
+        <button class="dropdown-item" name="month" value="11">11月</button>
+        <button class="dropdown-item" name="month" value="12">12月</button>
       </div>
     </div>
 
     <div class="dropdown btn-sort m-3">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink2" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false"> 分類
+        aria-haspopup="true" aria-expanded="false">
+        {{#ifEquals category "home"}}家居物業{{/ifEquals}}
+        {{#ifEquals category "transportation"}}交通出行{{/ifEquals}}
+        {{#ifEquals category "entertainment"}}休閒娛樂{{/ifEquals}}
+        {{#ifEquals category "food"}}餐飲食品{{/ifEquals}}
+        {{#ifEquals category "other"}}其他{{/ifEquals}}
+        分類
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         <a class="dropdown-item" href="/records/filter?{{#if month}}month={{month}}&{{/if}}category=home">家居物業</a>

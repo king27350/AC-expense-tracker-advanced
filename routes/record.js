@@ -13,18 +13,18 @@ router.get('/filter', authenticated, (req, res) => {
   Record.find({ userId: req.user._id }).exec((err, record) => {
     let records = ''
     if (!category) {
-      records = record.filter(item => item.date.getMonth() === Number(month))
+      records = record.filter(item => item.date.getMonth() === (Number(month) - 1))
     } else if (!month) {
       records = record.filter(item => item.category === category)
     } else {
-      records = record.filter(item => item.date.getMonth() === Number(month)).filter(item2 => item2.category === category)
+      records = record.filter(item => item.date.getMonth() === (Number(month) - 1)).filter(item2 => item2.category === category)
     }
 
     for (let i = 0; i < records.length; i++) {
       totalAmount += Number(records[i].amount)
     }
     req.flash('success_msg', '發大財，沒有支出')
-    res.render('index', { records, totalAmount, month })
+    res.render('index', { records, totalAmount, month, category })
   })
 
 })
