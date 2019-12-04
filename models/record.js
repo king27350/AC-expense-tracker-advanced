@@ -23,6 +23,9 @@ const recordSchema = new Schema({
     ref: 'User',
     index: true,
     required: true
+  },
+  store: {
+    type: String
   }
 })
 
