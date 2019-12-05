@@ -57,10 +57,15 @@
           <h1 class="text-right text-primary">$ {{totalAmount}}</h1>
         </div>
         {{!-- /total amount --}}
+        {{!-- weekly amount --}}
+        <div class="col-10 mx-auto d-block mb-3">
+          <h4 class="text-left">本周統計：</h4>
+          <h1 class="text-right text-primary">$ {{weeklyAmount}}</h1>
+        </div>
+        {{!-- /weekly amount --}}
         {{#ifEquals totalAmount "0"}}
         {{> messages}}
         {{/ifEquals}}
-
         {{#each records}}
         <div class="list-group-item">
           <div class="d-inline-block">
