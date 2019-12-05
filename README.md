@@ -23,7 +23,7 @@
 ## Installing 
 下載專案
 ```
-$git clone https://github.com/king27350/AC-expense-tracker.git
+$git clone https://github.com/king27350/AC-expense-tracker-advanced.git
 ```
 使用終端機安裝套件
 **Node Version v10.15.3**

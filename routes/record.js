@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../models/record')
 const { authenticated } = require('../config/auth')
+const moment = require('moment')
 
 
 //分類
@@ -9,6 +10,19 @@ router.get('/filter', authenticated, (req, res) => {
   const month = req.query.month
   const category = req.query.category
   let totalAmount = 0
+
+  // 判斷今天日期，選出當周的日期範圍
+  today = moment().format('YYYY-MM-DD')
+  d = moment(today).format('d')
+  lastDayOfWeek = moment().add(6 - d, 'days').format('YYYY-MM-DD')
+  firstDayOfWeek = moment().add(-d, 'days').format('YYYY-MM-DD')
+  // 找尋這周所登記的支出
+  let weeklyAmount = 0
+  Record.find({ userId: req.user._id, date: { "$lte": moment(lastDayOfWeek).toISOString(), "$gte": moment(firstDayOfWeek).toISOString() } }).exec((err, recordsOfWeek) => {
+    for (let j = 0; j < recordsOfWeek.length; j++) {
+      weeklyAmount += Number(recordsOfWeek[j].amount)
+    }
+  })
 
   Record.find({ userId: req.user._id }).exec((err, record) => {
     let records = ''
@@ -24,7 +38,7 @@ router.get('/filter', authenticated, (req, res) => {
       totalAmount += Number(records[i].amount)
     }
     req.flash('success_msg', '發大財，沒有支出')
-    res.render('index', { records, totalAmount, month, category })
+    res.render('index', { records, totalAmount, month, category, weeklyAmount, lastDayOfWeek, firstDayOfWeek })
   })
 
 })
