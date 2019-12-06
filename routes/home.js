@@ -18,16 +18,17 @@ router.get('/', authenticated, (req, res) => {
       weeklyAmount += Number(recordsOfWeek[j].amount)
     }
   })
-
-  Record.find({ userId: req.user._id }).exec((err, records) => {
-    let totalAmount = 0
-    for (let i = 0; i < records.length; i++) {
-      totalAmount += Number(records[i].amount)
-    }
-    if (err) return console.error(err)
-    req.flash('success_msg', '發大財，沒有支出')
-    return res.render('index', { records, totalAmount, userName, weeklyAmount, lastDayOfWeek, firstDayOfWeek })
-  })
+  setTimeout(() => {
+    Record.find({ userId: req.user._id }).exec((err, records) => {
+      let totalAmount = 0
+      for (let i = 0; i < records.length; i++) {
+        totalAmount += Number(records[i].amount)
+      }
+      if (err) return console.error(err)
+      req.flash('success_msg', '發大財，沒有支出')
+      return res.render('index', { records, totalAmount, userName, weeklyAmount, lastDayOfWeek, firstDayOfWeek })
+    })
+  }, 300)
 })
 
 module.exports = router
